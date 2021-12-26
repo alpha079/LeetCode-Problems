@@ -17,26 +17,46 @@ public:
 class Solution {
 public:
     Node* copyRandomList(Node* head) {
-        if(!head)return NULL;
-        Node* curr=head;
+        //Space optimise Version
         
-        unordered_map<Node*,Node*> map;
+        Node *curr=head;
         
         while(curr!=NULL)
         {
-            Node* newNode=new Node(curr->val);
-            map[curr]=newNode;
-            curr=curr->next;
+            Node* temp=curr->next;
+            Node* dummy=new Node(curr->val);
+            curr->next=dummy;
+            dummy->next=temp;
+            curr=temp;
         }
+        
+        //Now copy the Random Pointers of Original Node
         curr=head;
-        Node* clone=NULL;
+        
         while(curr!=NULL)
         {
-            clone=map[curr];
-            clone->next=map[curr->next];
-            clone->random=map[curr->random];
-            curr=curr->next;
+            if(curr->random)
+            {
+                curr->next->random=curr->random->next;
+            }
+            curr=curr->next->next;
         }
-        return map[head];
+        
+        //Now Detach the next Pointers with the Deep copy Node
+        Node* copyHead= new Node(0);
+        Node* itr=copyHead;
+        curr=head;
+        
+        while(curr!=NULL)
+        {
+            itr->next=curr->next;
+           curr->next=curr->next->next;
+            curr=curr->next;
+            itr=itr->next;
+            
+            
+        }
+        return copyHead->next;
+        
     }
 };
