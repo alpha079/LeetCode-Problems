@@ -18,6 +18,8 @@ public:
     }
 };
 */
+//Time: O(M + N) where N is the number of nodes and M is the number of edges.
+//Space: O(N)
 
 class Solution {
 public:
