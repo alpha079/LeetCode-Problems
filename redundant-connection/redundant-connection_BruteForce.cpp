@@ -4,6 +4,8 @@ public:
     //Mulit DFS travsersal Solution
     // We will add oedges one by one in Graph , and Call DFS on that
     
+    //Time Complexity : O(n2), In worst case, we may need n dfs calls with each taking O(n) time complexity.
+//Space Complexity : O(n), to maintain graph 
     bool dfs(vector<vector<int>>& graph,vector<bool>& vis, int curr, int par=-1)
     {
         if(vis[curr]==true)return true;
