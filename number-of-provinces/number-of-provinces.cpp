@@ -5,7 +5,7 @@ public:
         vis[i]=true;
         for(int k=0;k<isConnected.size();k++)
         {
-            if(!vis[k] and isConnected[i][k]==1)
+            if(k!=i and !vis[k] and isConnected[i][k]==1)
                 dfs(isConnected,vis,k);
         }
         return;
@@ -13,6 +13,7 @@ public:
     
     int findCircleNum(vector<vector<int>>& isConnected) {
         int n=isConnected.size();
+        if(n==0)return 0;
         int cnt=0;
         
         vector<bool> vis(n,false);
