@@ -1,6 +1,9 @@
 //See this Video for More Clarification
 //https://www.youtube.com/watch?v=FWAIf_EVUKE
 
+//Time complexity: O(9^(n*n)). 
+//For every unassigned index, there are 9 possible options so the time complexity is O(9^(n*n)). The time complexity remains the same but there will be some early pruning so the time taken will be much less than the naive algorithm but the upper bound time complexity remains the same.
+
 class Solution {
 public:
     void solveSudoku(vector<vector<char>>& board) {
