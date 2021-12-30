@@ -1,4 +1,5 @@
 class Solution {
+    //TC; O(V+E) i.e O(N^2)
 public:
     void dfs(vector<vector<int>>& isConnected, vector<bool>& vis, int i)
     {
