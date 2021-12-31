@@ -8,7 +8,7 @@ public:
             int newx=i+dx[k];
             int newy=j+dy[k];
             if(newx<0 or newx>=n or newy<0 or newy>=m or board[newx][newy]!='O')continue;
-            board[newx][newy]='/';
+            //board[newx][newy]='/';
             dfs(newx,newy,n,m,board);
         }
     }
