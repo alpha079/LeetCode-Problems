@@ -1,30 +1,40 @@
 class Solution {
 public:
-
-    int findCircleNum(vector<vector<int>>& M) {
-        int count = 0;
-        for (int i = 0; i < M.size(); i++) {
-            for (int j = 0; j < M[i].size(); j++) {
-                if (M[i][j]==1) {
-                    count++;
+    
+    int Find(int x,vector<int>& parent)
+    {
+        if(x==parent[x])
+            return x;
+        return parent[x]=Find(parent[x],parent);
+    }
+    int findCircleNum(vector<vector<int>>& grid) {
+        if(grid.size()==0)
+            return 0;
+        vector<int> parent(grid.size(),0);
+        for(int k=0;k<grid.size();k++)
+        {
+            parent[k]=k;
+        }
+        int group=grid.size();
+        for(int i=0;i<grid.size();i++)
+        {
+            for(int j=i+1;j<grid.size();j++)
+            {
+                if(grid[i][j])
+                {
+                    int parent1=Find(i,parent);
+                    int parent2=Find(j,parent);
+                    if(parent1!=parent2)
+                    {
+                        parent[parent2]=parent1;
+                        group--;
+                    }
                     
-                    dfs(M, i);
+                   
                 }
             }
         }
+        return group;
         
-        return count;
-    }
-    
-    void dfs(vector<vector<int>>& arr, int index) {
-        for (int i = 0; i < arr.size(); i++) {
-            if (arr[index][i]) {
-                arr[index][i] = 0; // i->j
-                
-                arr[i][index] = 0;  //j->i
-                //Set both to Zero so that we does not count twice
-                dfs(arr, i);
-            }
-        }
     }
 };
