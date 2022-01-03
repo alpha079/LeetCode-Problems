@@ -25,6 +25,7 @@ Step 4: abs (4 - 3) = 1, count = 3+1 = 4
 Step 5: abs (5 - 3) = 2, count = 4+2 = 6 ---> answer
 
 */
+//Tc:O(nlogn)
 class Solution {
 public:
     int minMoves2(vector<int>& nums) {
@@ -40,3 +41,4 @@ public:
         
     }
 };
+//
