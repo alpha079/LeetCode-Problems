@@ -1,6 +1,9 @@
+// Post Link:- https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/discuss/888416/C%2B%2B-or-Solution-With-FULL-Explanation-or-Greedy
 
 class Solution {
 public:
+	//We can sort by starting time or End time
+	// This answer is sorted by StartTime
    
     int findMinArrowShots(vector<vector<int>>& p) {
         
