@@ -1,3 +1,8 @@
+//We define each word as a Node and connect with edges with differences in word.
+// in question, it is mentioned that we can only travel from one word to another word, if difference is bu 1 char.
+
+//So we , start seeing this problem as standard BFS  Problem. why BFS ? Because we have to find the shortest path 
+
 class Solution {
 public:
     
@@ -5,7 +10,7 @@ public:
     {
         int len=str.size();
         
-        ////(26*length each word)
+       // O(len_of_word*26)  = O(1) as max_len_word = 10
         for(int i=0;i<len;i++)
         {
             string temp=str;
@@ -49,7 +54,7 @@ public:
                 {
                     return cnt;
                 }
-                //(26*length each word)
+               // O(len_of_word*26)  = O(1) as max_len_word = 10
                 wordMatch(it,vis,bfs);
             }
             cnt++;
