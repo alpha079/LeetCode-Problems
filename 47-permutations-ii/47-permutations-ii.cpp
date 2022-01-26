@@ -5,36 +5,45 @@ public:
     // which will keep track of the element visited before we backtrack
     //Time Complexity: O(N! * N)
 //Auxiliary Space : O(N! * N)
-    void solve(vector<int>& num,vector<vector<int>>& res, vector<int>& temp,vector<bool>& vis)
+    
+    bool checkDuplicates(int begin, int i, vector<int>& num)
+    {
+        for(int k=begin;k<i;k++)
+        {
+            if(num[k]==num[i])
+                return false;
+            
+        }
+        return true;
+    }
+    void solve(vector<int>& num,vector<vector<int>>& res, int begin)
         
     {
-        if(temp.size()==num.size())
+        if(begin==num.size()-1)
         {
-            res.push_back(temp);
+            res.push_back(num);
             return;
         }
         
-        for(int i=0;i<num.size();i++)
+        for(int i=begin;i<num.size();i++)
         {
-            if(vis[i]==true)continue;
+            if((num[begin]!=num[i] || i==begin) and checkDuplicates(begin,i,num)) 
+            {
+                swap(num[begin],num[i]);
+                solve(num,res,begin+1);
+                swap(num[begin],num[i]);
+            }
             
-            if(i and !vis[i-1] and num[i]==num[i-1])
-                continue;
-            vis[i]=true;
-            temp.push_back(num[i]);
-            solve(num,res,temp,vis);
-            temp.pop_back();
-            vis[i]=false;
         }
         
     }
     vector<vector<int>> permuteUnique(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
+        //sort(nums.begin(),nums.end());
         vector<vector<int>> res;
-        vector<int> temp;
-        vector<bool> vis(nums.size(),false);
+        //vector<int> temp;
+        //vector<bool> vis(nums.size(),false);
         
-        solve(nums,res,temp,vis);
+        solve(nums,res,0);
         return res;
         
     }
