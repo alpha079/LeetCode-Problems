@@ -1,41 +1,29 @@
 class Solution {
 public:
-    
-    //Generate all Permutation using Recursion + Backtracking
-    //(n*n!).. There are n! permutations of an array
-    
-    
-    void solve(vector<int>& nums,vector<vector<int>>& res, vector<int>& temp,vector<int> freq)
+    //TC:(N*N!)
+    //SC:- O(1)
+    void solve(vector<int>& num, vector<vector<int>>& res,int low, int high)
     {
-        if(temp.size()==nums.size())
+        if(low==high)
         {
-            res.push_back(temp);
+            res.push_back(num);
             return;
+            
         }
-        
-        for(int it=0;it<nums.size();it++)
-        {
-           
-            if(!freq[it])
+        else{
+            for(int i=low;i<=high;i++)
             {
-                freq[it]=1;
-                temp.push_back(nums[it]);
-                solve(nums,res,temp,freq);
-                freq[it]=0;
-                temp.pop_back();
+                swap(num[low],num[i]);
+                solve(num,res,low+1,high);
+                swap(num[low],num[i]);
             }
         }
-        
     }
     vector<vector<int>> permute(vector<int>& nums) {
+         vector<vector<int>> res;
         
-        vector<int> freq(nums.size(),0);
+        solve(nums,res,0,nums.size()-1);
         
-       
-        vector<vector<int>> res;
-        vector<int> temp;
-        
-        solve(nums,res,temp,freq);
         return res;
         
     }
