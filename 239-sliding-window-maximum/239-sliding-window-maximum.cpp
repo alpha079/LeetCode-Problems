@@ -1,26 +1,24 @@
-//Solution using Priority Queue
-// Time: O(NlogN), each operation of maxHeap of size N costs O(logN)
-//Space: O(N)
-//Input: arr[] = {10, 2, 3, 1, 4, 5, 2, 3, 6}, K = 3 
-//Output: 10 3 4 5 5 5 6
-
 class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        
-        priority_queue<pair<int,int>> pq;
         vector<int> res;
+        deque<int> dq;
+        
         for(int i=0;i<nums.size();i++)
         {
-            pq.push({nums[i],i});
+            while(!dq.empty() and nums[i]>=nums[dq.back()])
+            {
+                dq.pop_back();
+            }
+            dq.push_back(i);
             
             if(i+1>=k)
             {
-                res.push_back(pq.top().first);
+                res.push_back(nums[dq.front()]);
             }
-            while(!pq.empty() and i-pq.top().second+1>=k)
+            if(i-dq.front()+1>=k)
             {
-                pq.pop();
+                dq.pop_front();
             }
         }
         return res;
