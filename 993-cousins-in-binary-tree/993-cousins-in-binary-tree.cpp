@@ -9,54 +9,32 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+//For this Question,
+// What I can do if find level of both nodes, and parent of both nodes.
+// If LevelX==LevelY and ParentX!=ParentY
+
+void helper(TreeNode* root,int parent,int x,int level,pair<int,int>&p )
+{
+    if(root==NULL)
+        return;
+    if(root->val==x)
+    {
+        p=make_pair(parent,level);
+        return;
+    }
+    helper(root->left,root->val,x,level+1,p);
+    helper(root->right,root->val,x,level+1,p);
+    
+}
 class Solution {
 public:
     bool isCousins(TreeNode* root, int x, int y) {
-        if(root==NULL)
-            return false;
+        pair<int,int> p1,p2;
         
-    queue<TreeNode*> q;
-        q.push(root);
-        
-        while(!q.empty())
-        {
-            bool foundX=false;
-            bool foundY=false;
-            int size=q.size();
-            
-            while(size--)
-            {
-                TreeNode* curr=q.front();
-                q.pop();
-                
-                if(curr->val==x)
-                    foundX=true;
-                 if(curr->val==y)
-                    foundY=true;
-                
-                if(curr->left and curr->right)
-                {
-                    if((curr->left->val==x and curr->right->val==y) || (curr->left->val==y and curr->right->val==x))
-                    {
-                        return false;
-                        //beacuse x and y belong to same parent
-                    }
-                }
-                
-                if(curr->left)
-                    q.push(curr->left);
-                if(curr->right)
-                    q.push(curr->right);
-                
-                
-                
-                
-            }
-            if(foundX==true and foundY==true)
-                return true;
-            else false;
-        }
-        return false;
+        helper(root,-1,x,1,p1);
+        helper(root,-1,y,1,p2);
+        return p1.first!=p2.first and p1.second==p2.second;
         
     }
 };
