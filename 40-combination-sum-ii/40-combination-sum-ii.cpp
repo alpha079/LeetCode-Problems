@@ -1,7 +1,7 @@
 class Solution {
 public:
     
-    //TC:- O(k * 2 ^ n) is the time complexity of Combination Sum II:
+    //TC:- O(k * 2 ^ n),k is average length of each solution, is the time complexity of Combination Sum II:
     //TC Discussed here :- https://leetcode.com/problems/combination-sum/discuss/16634/If-asked-to-discuss-the-time-complexity-of-your-solution-what-would-you-say
     void solve(vector<int>& num, int target,vector<vector<int>>& res,vector<int>& mid, int begin)
     {
