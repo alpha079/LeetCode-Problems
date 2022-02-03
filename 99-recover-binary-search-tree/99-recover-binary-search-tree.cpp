@@ -9,36 +9,39 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+//if inorder traversal is 1,2,3,4,5,6,7,8 and we swap 7 and 4 , we get
+// 1 2 3 7 5 6 4 8 9, here 7>5 and 6>4
+//so vector<pair<TreeNode*,TreeNode*>> will have two value
+//[7,5] [6,4] then swap 7 and 4 from pair
 class Solution {
 public:
-//First insert the element into a vector using inrder traversal
-//then use the sort function to sort the vector.
-//Then rewrite teh values from the vector
-    //TC:- O(NlogN) + O(2N)
     
-    void inorder(TreeNode* root,vector<int>& res)
+    //TC:- O(N)
+    //SC:- O(2)== O(1)
+    vector<pair<TreeNode*,TreeNode*>> pair;
+    TreeNode* prev=NULL;
+    void inorder(TreeNode* root)
     {
-        if(root==NULL)
+        if(!root)
             return;
-        inorder(root->left,res);
-        res.push_back(root->val);
-        inorder(root->right,res);
+        inorder(root->left);
+        if(prev and prev->val>root->val)
+        {
+            pair.push_back({prev,root});
+        }
+        prev=root;
+        inorder(root->right);
     }
-    void ChangeValues(TreeNode* root,vector<int>& res, int& index)
-    {
-        if(root==NULL)
-            return;
-        ChangeValues(root->left,res,index);
-        root->val=res[index++];
-        ChangeValues(root->right,res,index);
-    }
-    
     void recoverTree(TreeNode* root) {
-        vector<int> res;
-        inorder(root,res);
-        sort(res.begin(),res.end());
-        int idx=0;
-        ChangeValues(root,res,idx);
+        inorder(root);
+        if(pair.size()==1)
+        {
+            swap(pair[0].first->val,pair[0].second->val);
+        }
+         if(pair.size()==2)
+        {
+            swap(pair[0].first->val,pair[1].second->val);
+        }
         
     }
 };
