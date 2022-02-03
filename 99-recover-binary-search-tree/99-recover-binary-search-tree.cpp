@@ -20,28 +20,29 @@ public:
     //SC:- O(2)== O(1)
     vector<pair<TreeNode*,TreeNode*>> pair;
     TreeNode* prev=NULL;
+    TreeNode* first=NULL;
+    TreeNode* second=NULL;
     void inorder(TreeNode* root)
     {
         if(!root)
             return;
         inorder(root->left);
-        if(prev and prev->val>root->val)
+        if(prev and prev->val>=root->val)
         {
-            pair.push_back({prev,root});
+            if(!first)
+            {
+                first=prev;
+            }
+            second=root;
         }
         prev=root;
         inorder(root->right);
     }
     void recoverTree(TreeNode* root) {
         inorder(root);
-        if(pair.size()==1)
-        {
-            swap(pair[0].first->val,pair[0].second->val);
-        }
-         if(pair.size()==2)
-        {
-            swap(pair[0].first->val,pair[1].second->val);
-        }
+        int temp=first->val;
+        first->val=second->val;
+        second->val=temp;
         
     }
 };
