@@ -3,35 +3,28 @@
 
 
 //Tc: O(N)
+
+//One pass Code 
+//https://leetcode.com/problems/gas-station/discuss/1705957/Java-A-very-detailed-explanation-or-Intuition-behind-logic-or-Brute-Force-to-Optimised
 class Solution {
 public:
     int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
         
-        int gasSum=0;
-        int costSum=0;
-        
-        for(auto it: gas)
-        {
-            gasSum+=it;
-        }
-        for(auto it: cost)
-        {
-            costSum+=it;
-        }
-        if(gasSum<costSum)
-            return -1;
+       int sum=0;
+        int gasInTank=0;
         int start=0;
-        int currSum=0;
+        
         for(int i=0;i<gas.size();i++)
         {
-            currSum+= (gas[i]-cost[i]);
-            if(currSum<0)
+            gasInTank+=gas[i]-cost[i];
+            sum+=gas[i]-cost[i];
+            
+            if(gasInTank<0)
             {
                 start=i+1;
-                currSum=0;
+                gasInTank=0;
             }
         }
-        return start;
-        
+        return sum>=0 ?start:-1;
     }
 };
