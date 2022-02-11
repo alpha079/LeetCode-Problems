@@ -3,28 +3,23 @@ public:
     // Time complexity: O(n * 26) = O(n)
 // Time space: O(26 * 2) = O(1)
     bool checkInclusion(string s1, string s2) {
-        if(s1.size()>s2.size())
-            return false;
-        
-        vector<int> v1(26),v2(26);
-        
-        for(char c: s1)
-        {
-            v1[c-'a']++;
+       int m=s1.length(),n=s2.length();
+		//base condition
+        if(m>n) return false;
+        vector<int> m1(26,0),m2(26,0);
+        for(int i=0;i<m;i++){
+            m1[s1[i]-'a']++;
+            m2[s2[i]-'a']++;
         }
-        
-       for(int i=0;i<s2.size();i++)
-       {
-           v2[s2[i]-'a']++;
-           
-           if(i>=s1.size()-1)
-           {
-               if(v1==v2)return true; //O(26)
-               
-               //make char out of window
-               v2[s2[i-s1.size()+1]-'a']--;
-           }
-       }
+		//if the permutation occurs at the beginning
+        if(m1==m2) return true;
+        int start=0,end=m;
+		//Apply sliding window and check for permutation in each iteration
+        while(end<n){
+            m2[s2[start++]-'a']--;
+            m2[s2[end++]-'a']++;
+            if(m1==m2) return true;
+        }
         return false;
         
     }
