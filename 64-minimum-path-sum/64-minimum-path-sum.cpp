@@ -3,22 +3,33 @@ public:
     
     //TC:- O(row*COl)
     //SC:- O(row*col)
-   int calculate(int row, int col, vector<vector<int>> &grid, vector<vector<int>> &dp) {
-    if(row == 0 && col == 0) 
-        return grid[0][0];
-    if(row < 0 || col < 0)
-        return INT_MAX;
-    if(dp[row][col] != -1)
-        return dp[row][col];
-    
-    int left = calculate(row, col - 1, grid, dp);
-    int up = calculate(row - 1, col, grid, dp);
-    return dp[row][col] = min(left, up) + grid[row][col];
-}
-
+  
 int minPathSum(vector<vector<int>>& grid) {
     int row = grid.size(), col = grid[0].size();
-    vector<vector<int>> dp(row, vector<int> (col, -1));
-    return calculate(row - 1, col - 1, grid, dp);
+    vector<vector<int>> dp(row, vector<int> (col, 0));
+   
+    for(int i=0;i<row;i++)
+    {
+        for(int j=0;j<col;j++)
+        {
+            if(i==0 and j==0)
+            {
+                dp[i][j]=grid[i][j];
+            }
+            else{
+                
+                int up=grid[i][j];
+                if(i>0)up+=dp[i-1][j];
+                else up=1e8;
+                
+                int left=grid[i][j];
+                if(j>0)left+=dp[i][j-1];
+                else left=1e8;
+                
+                dp[i][j]=min(left,up);
+            }
+        }
+    }
+    return dp[row-1][col-1];
 }
 };
