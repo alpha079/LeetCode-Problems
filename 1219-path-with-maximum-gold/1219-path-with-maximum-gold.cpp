@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //Each of the k gold cells can at most have 4 neighbors. Therefore,
     //Time: O(k * 4 ^ k + m * n - k), space: O(m * n), where k = number of gold cells, m = grid.length, n = grid[0].length.
     
     int dfs(vector<vector<int>>& grid, int i, int j, int m, int n)
