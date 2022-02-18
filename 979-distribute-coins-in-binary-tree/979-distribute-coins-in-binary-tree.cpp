@@ -12,43 +12,24 @@
 class Solution {
 public:
     
-    void helper(TreeNode* parent,TreeNode* root,int& coins)
-    {
-        if(root==NULL)
-            return;
-        helper(root,root->left,coins);
-        
-        helper(root,root->right,coins);
-        
-        if(root->val>1)
-        {
-            int extraCoins=root->val-1;
-            
-            parent->val+=extraCoins;
-            
-            coins+=extraCoins;
-            
-            //root->val=1;
-            
-        }
-        else if(root->val<1)
-        {
-           int coinNeeded= 1+ abs(root->val); // value can be negative
-            
-           parent->val-=coinNeeded;
-            
-            //root->val=1;
-            
-            coins+=coinNeeded;
-        }
-    }
+   int helper(TreeNode* root,int& coins)
+   {
+       if(root==NULL)
+           return 0;
+       int l=helper(root->left,coins);
+       int r=helper(root->right,coins);
+       
+       coins+=abs(l)+abs(r);
+       
+       return root->val+l+r-1;
+   }
     int distributeCoins(TreeNode* root) {
         
         if(root==NULL)
             return 0;
         int coins=0;
         
-        helper(root,root,coins);
+        helper(root,coins);
         
         return coins;
         
