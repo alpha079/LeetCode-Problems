@@ -9,21 +9,13 @@ public:
         
         for(auto it: nums)
         {
-            map[it]++;
-        }
-        
-        int res=0;
-        
-        int ans=INT_MIN;
-        for(auto it: map)
-        {
-            if(it.second> ans)
+            if(++map[it]>nums.size()/2)
             {
-                res=it.first;
-                ans=it.second;
+                return it;
             }
-            
         }
-        return res;
+        
+        return 0;
+       
     }
 };
