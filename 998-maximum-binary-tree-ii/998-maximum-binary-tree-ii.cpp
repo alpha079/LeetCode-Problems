@@ -11,18 +11,38 @@ class Solution {
 public:
     TreeNode* insertIntoMaxTree(TreeNode* root, int val) {
         
-        if(root==NULL)
-        {
-            return new TreeNode(val);
-        }
-        if(root->val<val)
-        {
-            TreeNode *node= new TreeNode(val);
-            node->left=root;
-            return node;
-        }
-        root->right=insertIntoMaxTree(root->right,val);
-        return root;
+      //iterative Version
+        //Do Dry run, you will get the Understanding
         
+        TreeNode* parent=NULL;
+        TreeNode* newNode=new TreeNode(val);
+        
+        TreeNode* curr=root;
+        
+        while(curr && curr->val>val)
+        {
+            
+                parent=curr;
+                curr=curr->right;
+            
+        }
+        
+        //if curr is not null
+        if(curr)
+        {
+            newNode->left=curr;
+            
+            if(parent)
+            {
+                parent->right=newNode;
+            }
+            else{
+                root=newNode;
+            }
+        }
+        else{
+            parent->right=newNode;
+        }
+     return root;   
     }
 };
