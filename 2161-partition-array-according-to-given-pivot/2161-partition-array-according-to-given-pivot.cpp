@@ -1,35 +1,38 @@
 class Solution {
 public:
-    //Using Three Traversals
-    //O(N) Solution
+  //LInk:-
+    //https://leetcode.com/problems/partition-array-according-to-given-pivot/discuss/1747115/Solution-for-C%2B%2B-three-pointers-O(N)
+    //Three Pointers and two loops
     vector<int> pivotArray(vector<int>& nums, int pivot) {
         
-        vector<int> res;
+        int low=0;
+        int same=0;
+        int high=nums.size();
         
         for(auto it: nums)
         {
             if(it<pivot)
             {
-                res.push_back(it);
+                ++same;
             }
-           
+            else if(it>pivot)
+            {
+                --high;
+            }
         }
-        
+        vector<int> res(nums.size());
         for(auto it: nums)
         {
             if(it==pivot)
             {
-                res.push_back(it);
+                res[same++]=it;
             }
-        }
-        for(auto it: nums)
-        {
-            if(it>pivot)
+            else if(it<pivot)
             {
-                res.push_back(it);
+                res[low++]=it;
             }
+            else res[high++]=it;
         }
         return res;
-        
     }
 };
