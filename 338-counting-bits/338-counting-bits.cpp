@@ -1,9 +1,20 @@
 class Solution {
 public:
+/* In this solution, we can think about whether the number is even or odd.
+If the number is even, the number of 1s is equal to the number which is half of it.
+For e.g., the number 8 has the same 1s as the number 4.
+The number 10 has the same amount of 1 bits as number 5.
+That is because number i is just left shift by 1 bit from number i / 2.
+Therefore, they should have the same number of 1 bits.
+
+If the numbers are odd, e.g. 1, 3, 5, 7.
+The number of 1 bits is equal to the number (i - 1) plus 1.
+For e.g., for number 3, the number of 1 bits equals to the number 2 plus 1.
+For number 11, it equals to number 10 + 1.
+*/
     
-    //TIme:- O(Nlogn)
     vector<int> countBits(int num) {
-        vector<int> res;
+        vector<int> res(num);
         res.push_back(0);
         if(num==0)
             return res;
@@ -12,15 +23,15 @@ public:
         
         for(int i=1;i<=num;i++)
         {
-            int sum=0;
-            int number=i;
-            while(number!=0)
+            if(i%2==0)
             {
-                sum+=number%2;
-                number/=2;
+                res[i]=res[i/2];
             }
-            res.push_back(sum);
+            else{
+                res[i]=res[i-1]+1;
+            }
         }
         return res;
+        //TC:- O(N)
     }
 };
