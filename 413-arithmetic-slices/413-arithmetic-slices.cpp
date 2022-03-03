@@ -2,6 +2,7 @@ class Solution {
 public:
     int numberOfArithmeticSlices(vector<int>& nums) {
         
+ //O(N^2) Solution       
         
         int n=nums.size();
         if(n<3)
