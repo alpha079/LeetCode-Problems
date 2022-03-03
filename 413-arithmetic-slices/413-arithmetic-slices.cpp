@@ -1,25 +1,16 @@
-class Solution {
+class Solution {    
+   
 public:
-    int numberOfArithmeticSlices(vector<int>& nums) {
-        
- //O(N^2) Solution       
-        
-        int n=nums.size();
-        if(n<3)
-            return 0;
-        int cnt=0;
-        
-        for(int i=1;i<n-1;i++)
-        {
-            int diff=nums[i]-nums[i-1];
-            
-            for(int j=i+1;j<n;j++)
-            {
-                if(nums[j]-nums[j-1]==diff)
-                    cnt++;
-                else break;
-            }
+    int numberOfArithmeticSlices(vector<int>& A) {
+        if (A.size() < 3)   return 0;
+        vector<int> dp(A.size(), 0);
+        int res = 0;
+        for (int i = 2; i < A.size(); i ++) {
+            if (A[i] - A[i - 1] == A[i - 1] - A[i - 2])
+                dp[i] = dp[i - 1] + 1;
+            res += dp[i];
+            cout<<dp[i]<<endl;
         }
-        return cnt;
+        return res;
     }
 };
