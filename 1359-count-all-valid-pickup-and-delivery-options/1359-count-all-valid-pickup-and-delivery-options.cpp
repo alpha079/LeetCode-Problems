@@ -3,13 +3,21 @@
 class Solution {
 public:
     int mod = pow(10,9)+7;
-    int totalWays(long unpicked, long undelivered,vector<vector<long>>&dp){
-        if(undelivered < unpicked || undelivered < 0 || unpicked < 0)
+    
+    long long totalWays(int pickup, int deliver, vector<vector<long>>&dp)
+    {
+      
+        if(deliver<pickup || pickup<0 || deliver<0)
+        {
             return 0;
-        if(dp[unpicked][undelivered] == 0)
-            dp[unpicked][undelivered] = (unpicked*totalWays(unpicked-1,undelivered,dp))%mod
-            + ((undelivered - unpicked)*totalWays(unpicked,undelivered-1,dp))%mod;
-        return dp[unpicked][undelivered]%mod;
+        }
+        if(dp[pickup][deliver]==0)
+        {
+             dp[pickup][deliver]=pickup*totalWays(pickup-1,deliver,dp)%mod+(deliver-pickup)*totalWays(pickup,deliver-1,dp)%mod;
+        }
+       
+        
+        return dp[pickup][deliver]%mod;
     }
     int countOrders(int n) {
         vector<vector<long>>dp(n+1,vector<long>(n+1,0));
