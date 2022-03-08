@@ -1,40 +1,49 @@
+//Using Morris Traversal
 
- /*
- Here next() takes "on average" O(1) time as each node goes into stack once and goes out of stack once.
-This is in fact average O(1) time. The while loop is misleading you to think it is not. Think about the number of times a node has been visited after iterating the whole tree. Each node has been visited twice. In some cases the while loop doesn't execute, so that node at that call is only visited once. Where does the other visit go? It goes to the while loop when you visit another node. That's why it's "average" O(1) time.
-*/
 class BSTIterator {
 public:
-    stack<TreeNode*> st;
+    TreeNode* curr=NULL;
     BSTIterator(TreeNode* root) {
-        //This Constrcutor will pre-insert the left element only in the stack
-        preCompute(root);
-        
-    }
-    void preCompute(TreeNode* root)
-    {
-        TreeNode* curr=root;
-        while(curr!=NULL)
-        {
-            st.push(curr);
-            curr=curr->left;
-        }
+        curr=root;
     }
     
     int next() {
-        
-        //Return the top node and then insert the Right, and their left Child;
-        
-        TreeNode* top=st.top();
-        st.pop();
-        preCompute(top->right);
-        return top->val;
+        int res=0;
+        while(curr!=NULL)
+        {
+            if(curr->left==NULL)
+            {
+                res=curr->val;
+                curr=curr->right;
+                break;
+            }
+            else{
+                TreeNode* prev=curr->left;
+                while(prev->right && prev->right!=curr)
+                {
+                    prev=prev->right;
+                }
+                if(prev->right==NULL)
+                {
+                    //Make Thread pointing to curr
+                    prev->right=curr;
+                    curr=curr->left;
+                }
+                else{
+                    //Remove the thread;
+                    prev->right=NULL;
+                    res=curr->val;
+                    curr=curr->right;
+                    break;
+                }
+            }
+        }
+        return res;
         
     }
     
     bool hasNext() {
-        return !st.empty();
-        
+        return curr!=NULL;
     }
 };
 
