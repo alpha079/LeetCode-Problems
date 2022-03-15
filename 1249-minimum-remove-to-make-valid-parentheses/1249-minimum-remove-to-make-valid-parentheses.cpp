@@ -1,42 +1,44 @@
+//https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/discuss/1073189/C%2B%2B-or-2-Approaches-or-O(n)-Beats-100-or-No-Extra-Space-(Best)-or-Explanation
+
 class Solution {
 public:
-//TC:- O(N)
-//Sc:- O(N)
     string minRemoveToMakeValid(string s) {
         
-     stack<int> st;
+        int open=0;
         
         for(int i=0;i<size(s);i++)
         {
             if(s[i]=='(')
             {
-                st.push(i);
+                open++;
             }
-            else if(s[i]==')'){
-                if(st.empty())
-                {
+            else if(s[i]==')')
+            {
+                if(open==0)
                     s[i]='#';
-                }
-                else{
-                    st.pop();
-                }
+                else open--;
             }
         }
-        
-        //Now if stack is not empty, pop the elements ony by one and put '#' there
-        
-        while(!st.empty())
+        open=0;
+         for(int i=size(s)-1;i>=0;i--)
         {
-            s[st.top()]='#';
-            st.pop();
+            if(s[i]==')')
+            {
+                open++;
+            }
+            else if(s[i]=='(')
+            {
+                if(open==0)
+                    s[i]='#';
+                else open--;
+            }
         }
-        
-        //now again iterate the string and pop the '#' form from the string
-
         string ans="";
-        for(int i=0;i<s.length();++i){
-            if(s[i]!='#'){ // append not marked character to the end of "ans"
-                ans.push_back(s[i]);
+        for(auto c: s)
+        {
+            if(c!='#')
+            {
+                ans.push_back(c);
             }
         }
         return ans;
