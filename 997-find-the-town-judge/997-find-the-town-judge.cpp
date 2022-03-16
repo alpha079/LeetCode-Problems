@@ -1,24 +1,12 @@
 class Solution {
 public:
-    int findJudge(int n, vector<vector<int>>& trust) {
-        
-        vector<int> indegree(n+1,0);
-        vector<int> outdegree(n+1,0);
-        for(int i=0;i<trust.size();i++)
-        {
-            int v1=trust[i][0];
-            int v2=trust[i][1];
-            
-            indegree[v2]++;
-            outdegree[v1]++;
-        }
-        for(int i=1;i<=n;i++)
-        {
-         
-            if(outdegree[i]==0 and indegree[i]==n-1)
-                return i;
+   int findJudge(int N, vector<vector<int>>& trust) {
+        vector<int> count(N + 1, 0);
+        for (auto& t : trust)
+            count[t[0]]--, count[t[1]]++;
+        for (int i = 1; i <= N; ++i) {
+            if (count[i] == N - 1) return i;
         }
         return -1;
-        
     }
 };
