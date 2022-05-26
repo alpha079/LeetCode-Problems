@@ -18,6 +18,7 @@ n=1000 (n-1)=0111 n&(n-1)=1000 & 0111 = 0000 (condition to exit while) -- count=
             cnt++;
         }
         return cnt;
+        //No of iterations is euqal to number of Set Bits.
         
     }
 };
