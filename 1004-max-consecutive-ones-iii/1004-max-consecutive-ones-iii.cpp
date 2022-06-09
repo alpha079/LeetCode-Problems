@@ -1,23 +1,22 @@
 class Solution {
 public:
     int longestOnes(vector<int>& nums, int k) {
-        int left=0;
-        int cnt=0;
-        deque<int> dq;
-        int ans=0;
         
-        for(int right=0;right<nums.size();right++)
+        //Using Deque
+        deque<int> dq;
+        int low=0;
+        int res=0;
+        for(int i=0;i<nums.size();i++)
         {
-            if(nums[right]==0)
-                dq.push_back(right);
+            if(nums[i]==0)
+                dq.push_back(i);
             while(dq.size()>k)
             {
-                left=dq.front()+1;
+                low=dq.front()+1;
                 dq.pop_front();
             }
-            ans=max(ans,right-left+1);
+            res=max(res,i-low+1);
         }
-        return ans;
-        
+        return res;
     }
 };
