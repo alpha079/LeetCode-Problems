@@ -3,14 +3,15 @@ public:
     int numWaterBottles(int numBottles, int numExchange) {
         
         
-        int res=0, remBottle=0;
+        int res=numBottles;
         
-        while(numBottles>0)
+        
+        while(numBottles>=numExchange)
         {
-            res+=numBottles;
-            numBottles+=remBottle;
-            remBottle=numBottles%numExchange;
+            int rem=numBottles%numExchange;
             numBottles/=numExchange;
+            res+=numBottles;
+            numBottles+=rem;
             
         }
         return res;
