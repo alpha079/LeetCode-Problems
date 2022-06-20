@@ -1,4 +1,5 @@
-//Brute Force is m*n
+
+//TC:- O(M+N)
 
 class Solution {
 public:
@@ -6,30 +7,21 @@ public:
         
         int row=grid.size();
         int col=grid[0].size();
-        int lastNeg=col-1;
-        int low=0;
-        int high;
-        int cnt=0;
-        for(int i=0;i<row;i++)
-        {
-            if(grid[i][col-1]>0)
-                continue;
-            if(grid[i][0]<0)
-            { cnt+=col;continue;}
         
-        //Negative number can lie partially, either to the left of the mid, or to the right of mid
-        high=lastNeg;
-            while(low<=high)
+        int low=row-1;
+        int high=0;
+       
+        int cnt=0;
+       
+        while(low>=0 and high<=col-1)
+        {
+            if(grid[low][high]<0)
             {
-                int mid=(low+high)/2;
-                if(grid[i][mid]>=0)
-                    low=mid+1;
-                else high=mid-1;
+                cnt+=col-high;
+                low--;
             }
-            cnt+=col-low;
-            lastNeg=low;
-            low=0;
-         }
+            else high++;
+        }
         return cnt;
     }
 };
