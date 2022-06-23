@@ -10,18 +10,16 @@ public:
     int solve(vector<vector<int>>& matrix, int i, int j)
     {
         if(dp[i][j])
+        {
             return dp[i][j];
+        }
         dp[i][j]=1;
         for(int k=0;k<4;k++)
         {
-            int newR=i + DIR[k];
-            int newC= j+ DIR[k+1];
-            
-            if(newR<0 || newC<0 || newR>=matrix.size() || newC>=matrix[0].size() || matrix[newR][newC]<=matrix[i][j]){
-                continue;
-            }
-            dp[i][j]=max(dp[i][j],1+solve(matrix,newR,newC));
-            
+            int newX= i + DIR[k];
+            int newY= j+ DIR[k+1];
+            if(newX<0 || newY<0 || newX>=size(matrix) | newY>=size(matrix[0]) || matrix[newX][newY]<=matrix[i][j])continue;
+            dp[i][j]=max(dp[i][j],1+solve(matrix,newX,newY));
         }
         return dp[i][j];
     }
