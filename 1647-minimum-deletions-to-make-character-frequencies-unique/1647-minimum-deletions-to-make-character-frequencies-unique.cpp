@@ -1,28 +1,29 @@
 class Solution {
 public:
-    //TC:- O(NlognN)
+    //Sortting is O(26log26) = O(N)
     int minDeletions(string s) {
+        vector<int> hash(26,0);
         
-     unordered_map<char,int> map;
-        
-        for(auto it: s)
+        for(char c: s)
         {
-            map[it]++;
+            hash[c-'a']++;
         }
-        unordered_set<int> set;
+        sort(hash.begin(),hash.end());
+        //Sorted in increasing order
         int ans=0;
-        
-        for(auto [key,value]: map)
+        //0-25, 25 is last element., we will start from 25-1= 24 element
+        for(int i=24;i>=0;i--)
         {
-            while(set.find(value)!=set.end())
+            if(hash[i]==0)break;//this means we have completed the scan from right to left
+            // just break loop and print the answer
+            
+            if(hash[i]>=hash[i+1])
             {
-                value--;
-                ans++;
+                int temp=hash[i];
+                hash[i]=max(0,hash[i+1]-1);
+                ans+=temp-hash[i];
             }
-            if(value>0)
-                set.insert(value);
         }
         return ans;
-        
     }
 };
