@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //TC:- O(NlognN)
     int minDeletions(string s) {
         
      unordered_map<char,int> map;
