@@ -1,23 +1,17 @@
-// Code 1 : More optmised approaches in later submissions
 
+//TC: O(Nlogn)
 class Solution {
 public:
     int minIncrementForUnique(vector<int>& nums) {
         sort(nums.begin(),nums.end());
-        set<int> set;
-        int ans=0;
+       int ans=0;
         
-        for(auto it: nums)
+        for(int i=1;i<nums.size();i++)
         {
-            if(set.find(it)==set.end())
+            if(nums[i]<=nums[i-1])
             {
-                set.insert(it);
-            }
-            else{
-                int ptr=*(set.rbegin());
-                ptr++;
-                ans+=ptr-it;
-                set.insert(ptr);
+                ans+=(nums[i-1]+1-nums[i]);
+                nums[i]=nums[i-1]+1;
             }
         }
         return ans;
