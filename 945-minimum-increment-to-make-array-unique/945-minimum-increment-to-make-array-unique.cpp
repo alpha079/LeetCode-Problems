@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //https://leetcode.com/problems/minimum-increment-to-make-array-unique/discuss/2011156/C%2B%2B-or-Most-Intuitive-or-Easiest-Solution-or-Concise-Implementation
     const int N = 2e5 + 5;
     int minIncrementForUnique(vector<int>& nums) {
         
