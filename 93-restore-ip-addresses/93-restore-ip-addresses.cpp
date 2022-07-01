@@ -1,35 +1,47 @@
 class Solution {
-  string convertToString(vector<string> &sol) {
-    return sol[0] + '.' + sol[1] + '.' + sol[2] + '.' + sol[3];
-  }
-  void restore(string &ip, vector<string> &res, vector<string> &sol, int begin) {
-    // If is 4th part
-    if (sol.size() == 4) {
-      // If we use every character, we find a solution
-      if (begin == ip.length())
-        res.push_back(convertToString(sol));
-      return;
-    }
-    // If is not 4th part
-    string str;
-    for (int i = 1; i <= 3 && begin + i <= ip.size(); i++) {
-      str = ip.substr(begin, i);
-      // leading zero or > 255 are invalid
-      if ((str[0] == '0' && str.size() > 1) || stoi(str) > 255)
-        return;
-
-      sol.push_back(str);
-      restore(ip, res, sol, begin + i);
-      sol.pop_back();
-    }
-  }
-
 public:
-  vector<string> restoreIpAddresses(string s) {
-    vector<string> res, sol;
-    if (s.length() > 12)
-      return res;
-    restore(s, res, sol, 0);
-    return res;
-  }
+    
+    bool isValid(string& str)
+    {
+        if(str.size()>3)
+            return false;
+        if(str[0]=='0' and str.size()>1)
+            return false;
+        int value=stoi(str);
+        return value>=0 and value<=255;
+    }
+    vector<string> restoreIpAddresses(string s) {
+        
+        vector<string> res;
+        if(s.size()>12)
+            return res;
+        
+        for(int i=1;i<=3 and i<size(s);i++)
+        {
+            string first=s.substr(0,i);
+            if(isValid(first))
+            {
+                for(int j=1;j<=3 and i+j<size(s);j++)
+                {
+                    string second=s.substr(i,j);
+                    if(isValid(second))
+                    {
+                        for(int k=1;k<=3 and i+j+k<size(s);k++)
+                        {
+                            string third=s.substr(i+j,k);
+                            string fourth=s.substr(i+j+k);
+                            if(isValid(third) && isValid(fourth))
+                            {
+                                                     res.emplace_back(first+"."+second+"."+third+"."+fourth);
+                            }
+                        }
+                    }
+                }
+            }
+            
+        }
+        return res;
+            
+        
+    }
 };
