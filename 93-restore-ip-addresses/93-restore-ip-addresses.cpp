@@ -1,47 +1,42 @@
 class Solution {
 public:
-    
-    bool isValid(string& str)
+    string ConvertToString(vector<string> &sol) {
+    return sol[0] + '.' + sol[1] + '.' + sol[2] + '.' + sol[3];
+  }
+    void MakeIP(string& s, vector<string>& res,vector<string>& ans,int begin )
     {
-        if(str.size()>3)
-            return false;
-        if(str[0]=='0' and str.size()>1)
-            return false;
-        int value=stoi(str);
-        return value>=0 and value<=255;
+        
+        if(ans.size()==4)
+        {
+            if(begin==s.length())
+            {
+                res.push_back(ConvertToString(ans));
+            }
+            return;
+        }
+        for(int i=1;i<=3 and begin+i<=size(s);i++)
+        {
+            string temp=s.substr(begin,i);
+            if((temp[0]=='0' and temp.size()>1)||  stoi(temp)>255)
+                return;
+            ans.push_back(temp);
+            MakeIP(s,res,ans,begin+i);
+            ans.pop_back();
+        }
+        
+        
+        
+        
     }
     vector<string> restoreIpAddresses(string s) {
         
-        vector<string> res;
-        if(s.size()>12)
+        vector<string> res,ans;
+        
+        if(s.size()<4 || s.size()>12)
             return res;
         
-        for(int i=1;i<=3 and i<size(s);i++)
-        {
-            string first=s.substr(0,i);
-            if(isValid(first))
-            {
-                for(int j=1;j<=3 and i+j<size(s);j++)
-                {
-                    string second=s.substr(i,j);
-                    if(isValid(second))
-                    {
-                        for(int k=1;k<=3 and i+j+k<size(s);k++)
-                        {
-                            string third=s.substr(i+j,k);
-                            string fourth=s.substr(i+j+k);
-                            if(isValid(third) && isValid(fourth))
-                            {
-                                                     res.emplace_back(first+"."+second+"."+third+"."+fourth);
-                            }
-                        }
-                    }
-                }
-            }
-            
-        }
+        MakeIP(s,res,ans,0);
         return res;
-            
         
     }
 };
