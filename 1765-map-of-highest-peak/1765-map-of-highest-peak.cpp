@@ -1,5 +1,8 @@
 class Solution {
 public:
+    //Multisource BFS 
+    //TC:- O(m*n)
+    
      bool isValid(int r, int c,vector<vector<int>>& grid)
     {
         return r>=0 and c>=0 and r<grid.size() and c<grid[0].size();
