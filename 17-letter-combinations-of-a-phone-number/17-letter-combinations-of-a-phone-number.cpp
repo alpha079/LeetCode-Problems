@@ -10,19 +10,21 @@ Space Complexity : O(N), the max recursion depth will be N, where N is the lengt
     
    vector<string> mapping = {"abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}, ans;   
     
-    void helper(int idx,string& str,string& res)
+   
+    void helper(int index,string& str,string& path)
     {
-        if(idx==str.size())
+        if(index==size(str))
         {
-            ans.push_back(res);
+            ans.push_back(path);
+            return;
         }
         else{
-            for(auto c: mapping[str[idx]-'2'])
-            {
-                res.push_back(c);
-                helper(idx+1,str,res);
-                res.pop_back();
-            }
+        for(auto c: mapping[str[index]-'2'])
+        {
+            path.push_back(c);
+            helper(index+1,str,path);
+            path.pop_back();
+        }
         }
     }
     vector<string> letterCombinations(string digits) {
