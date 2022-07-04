@@ -1,30 +1,47 @@
 class Solution {
 public:
+    //O(nlogm)
     vector<int> findPeakGrid(vector<vector<int>>& mat) {
         int n=mat.size();
         int m=mat[0].size();
         
-        vector<vector<int>>dp(n+2,vector<int>(m+2,-1));
+        int low=0;
+        int high=n;
         
-        for(int i=0;i<n;i++)
+        while(low<=high)
         {
-            for(int j=0;j<m;j++)
+            int mid= low+ (high-low)/2; //column selected
+            
+            //now traversing the row
+            int ele=0;
+            int col=0;
+            for(int i=0;i<m;i++)
             {
-                dp[i+1][j+1]=mat[i][j];
-            }
-        }
-        
-         for(int i=1;i<n+1;i++)
-        {
-            for(int j=1;j<m+1;j++)
-            {
-                int val=dp[i][j];
-                if(val>dp[i-1][j] and val>dp[i][j-1] and val>dp[i+1][j] and val>dp[i][j+1])
+                if(ele<mat[mid][i])
                 {
-                    return {i-1,j-1};
+                    ele=mat[mid][i];
+                    col=i;
                 }
             }
+            //now check for Top/Down
+            
+            int top=(mid==0)?-1:mat[mid-1][col];
+            int bot= (mid==n-1)?-1:mat[mid+1][col];
+            
+            if(ele>top and ele>bot)
+            {
+                return {mid,col};
+            }
+            else if(ele>top and ele<bot)
+            {
+                low=mid+1;
+            }
+            else high=mid-1;
+            
+            
         }
-        return {};
+        
+       
+        return {0,0};
     }
 };
