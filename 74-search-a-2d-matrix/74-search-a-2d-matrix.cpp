@@ -3,28 +3,23 @@
 
 class Solution {
 public:
-    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+    bool searchMatrix(vector<vector<int>>& matrix, int key) {
         
         int row=matrix.size();
         int col=matrix[0].size();
         
-       int low=0,high=row*col-1;
+       int low=0,high=col-1;
         
-        while(low<=high)
+        while(low<row and high>=0)
         {
-            int mid=(low+high)/2;
-            int midVal=matrix[mid/col][mid%col];
-            
-            if(midVal==target)
-            {
+            if(matrix[low][high]==key)
                 return true;
-            }
-            else if(target>midVal)
-            {
-                low=mid+1;
-            }
-            else high=mid-1;
+            else if(matrix[low][high]<key)
+                 low++;
+            else high--;
         }
+        
+      
         return false;
         
     }
