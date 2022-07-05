@@ -1,5 +1,5 @@
 //try to convert this while matric into single array
-//TC:- log(row*col) => log(n) where is row*col
+//TC:- O(log(row*col)) => log(n) where is row*col
 
 class Solution {
 public:
