@@ -1,37 +1,23 @@
 class Solution {
 public:
     
-    //TC:- O(row*COl)
-    //SC:- O(row*col)
-  
-int minPathSum(vector<vector<int>>& grid) {
-    int row = grid.size(), col = grid[0].size();
-   // vector<vector<int>> dp(row, vector<int> (col, 0));
-   
-    vector<int> prev(col,0),curr(col,0);
-    for(int i=0;i<row;i++)
+    int helper(vector<vector<int>>& grid, int row, int col,vector<vector<int>>& dp)
     {
-        for(int j=0;j<col;j++)
-        {
-            if(i==0 and j==0)
-            {
-                curr[j]=grid[i][j];
-            }
-            else{
-                
-                int up=grid[i][j];
-                if(i>0)up+=prev[j];
-                else up=1e8;
-                
-                int left=grid[i][j];
-                if(j>0)left+=curr[j-1];
-                else left=1e8;
-                
-               curr[j]=min(left,up);
-            }
-        }
-        prev=curr;
+        if(row==0 and col==0)
+            return grid[row][col];
+        if(row<0 || col<0)
+            return INT_MAX;
+        if(dp[row][col] != -1)
+        return dp[row][col];
+        int left=helper(grid,row-1,col,dp);
+        int right=helper(grid,row,col-1,dp);
+        return dp[row][col]=min(left,right)+ grid[row][col];
     }
-    return prev[col-1];
-}
+    int minPathSum(vector<vector<int>>& grid) {
+         int row = grid.size(), col = grid[0].size();
+        vector<vector<int>>dp(row,vector<int>(col,-1));
+        return helper(grid,row-1,col-1,dp);
+        
+        
+    }
 };
