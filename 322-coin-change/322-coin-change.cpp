@@ -1,7 +1,8 @@
 class Solution {
 public:
+    //https://leetcode.com/problems/coin-change/discuss/2058536/Recursion-greatermemoisation-greater2Dtabulation-greater1Dtabulation
     //Exponential Time complexity
-    //O(2^N) where n is sum
+    //O(amount*N) where N is size of the array 
     int helper(vector<int>& coins,int n, int target,vector<vector<int>>& dp)
     {
         if(n==0 || target==0)
