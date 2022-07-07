@@ -1,7 +1,8 @@
 class Solution {
 public:
     
-    //Time:- O(2^N)
+    //The worst-case time complexity will be 2^Target. Think if we have 1 in the list and the target is 7. You have to make 7 branches to the bottom at least, to find the combination with 1. so the height of the tree would be T and the decisions can be two at a time.
+    //Time:- O(2^N) where N=target
     //[2,7,6,3,5,1] , 9
     //Without sorting failing on this test case
     void helper(vector<int>& num,int target,vector<vector<int>>& res,vector<int>& ans,int begin)
