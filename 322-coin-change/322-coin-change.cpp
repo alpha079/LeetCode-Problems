@@ -1,40 +1,24 @@
 class Solution {
 public:
+    //Exponential Time complexity
+    //O(2^N) where n is sum
+    int helper(vector<int>& coins,int n, int target,vector<vector<int>>& dp)
+    {
+        if(n==0 || target==0)
+            return (target==0?dp[target][n]=0 :dp[target][n]=1e9);
+        if(dp[target][n]!=-1)
+        {
+            return dp[target][n];
+        }
+        if(coins[n-1]>target)
+            return dp[target][n]=helper(coins,n-1,target,dp);
+        return dp[target][n]=min(helper(coins,n,target-coins[n-1],dp)+1,helper(coins,n-1,target,dp));
+    }
     int coinChange(vector<int>& coins, int amount) {
+        
         int n=coins.size();
-        //if()
-        
-        int dp[n+1][amount+1];
-        
-        dp[0][0]=0;
-        for(int i=1;i<=amount;i++) //with zero coin , for a given amount , we need infinite coins
-        {
-            dp[0][i]=(INT_MAX/2);
-        }
-        
-        for(int i=1;i<=n;i++)
-        {
-            dp[i][0]=0;
-        }
-        
-        for(int i=1;i<=n;i++)
-        {
-            for(int j=1;j<=amount;j++)
-            {
-                if(j>=coins[i-1])
-                {
-                    dp[i][j]=min(dp[i][j-coins[i-1]]+1,dp[i-1][j]);
-                }
-                else{
-                    dp[i][j]=dp[i-1][j];
-                }
-            }
-        }
-        if(dp[n][amount]==INT_MAX/2)
-            return -1;
-         else
-            return dp[n][amount]; 
-       
-        
+         vector<vector<int>> dp(amount+1, vector<int>(n+1,-1));
+        int ans= helper(coins,n,amount,dp);
+        return (ans==1e9 ?-1: ans);
     }
 };
