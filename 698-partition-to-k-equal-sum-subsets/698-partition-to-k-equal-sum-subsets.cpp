@@ -1,3 +1,7 @@
+//Time: O(k!(k^N)), N=size of array (Reason: every K blanks has N possibilies to be filled with, so K^N and these blanks can arrange themselves in k! ways, so k!(k^N))
+//space: O(N) (including visited array only!)
+
+
 class Solution {
 public:
     bool dfs(vector<int>& num,int k, vector<int>& vis, int idx, int sum, int& target)
