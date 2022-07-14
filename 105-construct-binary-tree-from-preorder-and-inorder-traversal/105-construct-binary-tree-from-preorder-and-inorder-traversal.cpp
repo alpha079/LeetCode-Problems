@@ -11,32 +11,39 @@
  */
 class Solution {
 public:
-    TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int& idx, int low, int high)
+    unordered_map<int,int> map;
+    TreeNode* helper(vector<int>& preorder, vector<int>& inorder, int& idx, int low, int high,unordered_map<int,int>& map)
     {
         if(low>high)
             return NULL;
         
         TreeNode* root= new TreeNode(preorder[idx]);
         idx++;
-        int inorderIn=0;
-        for(int i=low;i<=high;i++)
+        //auto inorderIn=lower_bound(inorder.begin(),inorder.end(),root->val)-inorder.begin();
+        /*for(int i=low;i<=high;i++)
         {
             if(inorder[i]==root->val)
             {
                 inorderIn=i;
                 break;
             }
-        }
-        root->left=helper(preorder,inorder,idx,low,inorderIn-1);
-        root->right=helper(preorder,inorder,idx,inorderIn+1,high);
+        }*/
+        int value=map[root->val];
+        root->left=helper(preorder,inorder,idx,low,value-1,map);
+        root->right=helper(preorder,inorder,idx,value+1,high,map);
         return root;
     }
     TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
         
         TreeNode* root=NULL;
         int idx=0;
+        int i=0;
+        for(auto it: inorder)
+        {
+            map[it]=i++;
+        }
         
-        return helper(preorder,inorder,idx,0,preorder.size()-1);
+        return helper(preorder,inorder,idx,0,preorder.size()-1,map);
         
         
         
