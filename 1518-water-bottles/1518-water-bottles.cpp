@@ -15,6 +15,7 @@ public:
             numBottle/=numExchange;
             
         }
+        //tc:- O(log(numBottle))
         return res;
     }
 };
