@@ -1,17 +1,18 @@
 class Solution {
 public:
-    int numWaterBottles(int numBottles, int numExchange) {
+    int numWaterBottles(int numBottle, int numExchange) {
         
         
-        int res=numBottles;
+       int res(0), unfilledBottles=0;
         
+        //Here numBottles refers to filled bottle left
         
-        while(numBottles>=numExchange)
+        while(numBottle>0)
         {
-            int rem=numBottles%numExchange;
-            numBottles/=numExchange;
-            res+=numBottles;
-            numBottles+=rem;
+            res+=numBottle;
+            numBottle+=unfilledBottles;
+            unfilledBottles=numBottle%numExchange;
+            numBottle/=numExchange;
             
         }
         return res;
