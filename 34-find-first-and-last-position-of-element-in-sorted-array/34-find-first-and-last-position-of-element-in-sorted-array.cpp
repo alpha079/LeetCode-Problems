@@ -3,10 +3,10 @@ public:
     //O(logn)+O(logn)
     vector<int> searchRange(vector<int>& nums, int target) {
         
-        return {firstOcc(nums,target),lastOcc(nums,target)};
+        return {FindFastAndLast(nums,target,"FIRST"),FindFastAndLast(nums,target,"LAST")};
         
     }
-    int firstOcc(vector<int>& nums, int target)
+    int FindFastAndLast(vector<int>& nums, int target,string type)
     {
         int res=-1;
         
@@ -20,7 +20,8 @@ public:
             if(nums[mid]==target)
             {
                 res=mid;
-                high=mid-1;
+                (type=="FIRST")? high=mid-1:low=mid+1;
+               
             }
             else if(nums[mid]<target)
             {
@@ -30,28 +31,5 @@ public:
         }
         return res;
     }
-    int lastOcc(vector<int>& nums, int target)
-    {
-        int res=-1;
-        
-        int low=0;
-        int high=nums.size()-1;
-        
-        while(low<=high)
-        {
-            int mid=(low+high)/2;
-            
-            if(nums[mid]==target)
-            {
-                res=mid;
-                low=mid+1;
-            }
-            else if(nums[mid]<target)
-            {
-                low=mid+1;
-            }
-            else high=mid-1;
-        }
-        return res;
-    }
+   
 };
