@@ -1,5 +1,6 @@
 class Solution {
 public:
+    //O(logn)+O(logn)
     vector<int> searchRange(vector<int>& nums, int target) {
         
         return {firstOcc(nums,target),lastOcc(nums,target)};
