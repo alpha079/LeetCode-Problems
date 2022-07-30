@@ -1,5 +1,10 @@
 class Solution {
 public:
+    
+    /*
+      Time Complexity : O(N1 + N2), where N1 is the sum of length of all words from A and b is the sum of length of all words from N2
+Space Complexity : : O(U), where U, is the sum of length of all universal words.
+    */
     vector<int> CountFreq(string& it)
     {
         vector<int> freq(26);
