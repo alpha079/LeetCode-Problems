@@ -20,7 +20,7 @@ public:
         //So, in Even Lenght, mid will be at slow position.
         //In case of Odd Length linked list, fast will be pinting to last Node;
         //so , slow will be slow->next
-        slow=(fast)?slow->next:slow;
+        slow=(fast!=NULL)?slow->next:slow;
         
         while(slow)
         {
