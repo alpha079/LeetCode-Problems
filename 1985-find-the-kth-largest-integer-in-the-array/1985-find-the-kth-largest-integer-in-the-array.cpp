@@ -26,16 +26,17 @@ public:
         
         priority_queue<string,vector<string>,comparator> pq;//Min-Heap declaration
         //TC:- O(nlogk)
-        for(int i=0;i<nums.size();i++)
+        
+        /*Time: O(NlogK * M), where N <= 10^4 is length of nums array, K <= N is the kth largest element need to output, M <= 100 is length of each num.
+Explain: The MinHeap keeps up to K elements, each heappush/heappop operator costs O(logK). We iterate all elements in nums and push/pop to the MinHeap N times. We need to multiply by M as well, since in the worst case, we need to compare strings by their lexicographically.
+Space: O(K)
+    */
+        for(auto it: nums)
         {
-            if(i<k)
+            pq.push(it);
+            if(pq.size()>k)
             {
-                pq.push(nums[i]);
-            }
-            else{
-                pq.push(nums[i]);
                 pq.pop();
-                
             }
         }
         return pq.top();
