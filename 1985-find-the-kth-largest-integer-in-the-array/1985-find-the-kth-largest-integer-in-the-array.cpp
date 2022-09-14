@@ -1,5 +1,7 @@
 class Solution {
 public:
+    
+    //https://leetcode.com/problems/find-the-kth-largest-integer-in-the-array/discuss/1431847/C%2B%2BJavaPython-3-solutions%3A-MinHeap-MaxHeap-QuickSelect-Clean-and-Concise
     //TC:- O(Nlogn)
     
      static bool compare(string& a, string& b)
@@ -40,6 +42,35 @@ Space: O(K)
             }
         }
         return pq.top();
+        
+        
+        //Max heap Implementation
+        /*
+        
+        static public comp(string& a, string& b)
+        {
+          //if size if equal, then return greater one
+          
+          if(a.size()==b.size())
+          {
+          return a<b; if a is smaller than b, return 1, that means do swap
+          }
+          
+          return a.size()<b.size(); //return 1 to do swap;
+        }
+           priority<string,vector<string>,comp> pq;
+           for(auto it: nums)
+           {
+              pq.push(it);
+           }
+           k--;
+           while(k--)
+           {
+            pq.pop();
+           }
+           return pq.top();
+        
+        */
         
     }
 };
