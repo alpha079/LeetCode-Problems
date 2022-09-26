@@ -1,38 +1,19 @@
 class Solution {
 public:
     string reverseWords(string s) {
-		// append a blank character at end of string to track words by blank
-        s += " ";
-		
-        char temp;
-        int i = 0, j, size = s.length(), saveIndex;
         
-        while(i < size)
+        int i=0;
+        for(int j=0;j<size(s);j++)
         {
-            j = i;
-            
-			// keep going till blank space is encountered
-            while(s[j] != ' ')
-                j++;
-				
-			// save this index since the next will start from this index + 1 i.e., later i = saveIndex + 1;
-            saveIndex = j;
-            
-			// come back to the last letter of the word, currently j was at blank space's index
-            --j;
-			
-			// simply reverse the word elements now from i to j
-            while(i < j)
+            if(s[j]==' ')
             {
-                temp = s[i];
-                s[i] = s[j];
-                s[j] = temp;
-                ++i; --j;
-            }            
-			
-            i = saveIndex + 1;
+                reverse(s.begin()+i,s.begin()+j);
+                i=j+1;
+            }
         }
-        s.pop_back();
+        reverse(s.begin()+i,s.end());
+        
         return s;
+        
     }
 };
