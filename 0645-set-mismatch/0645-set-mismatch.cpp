@@ -3,26 +3,26 @@ public:
     vector<int> findErrorNums(vector<int>& nums) {
         
         
-        //TC: O(N) , we perfom traversal two times,but we do not sort the array
-        vector<int> res(2,-1);
-        int len=nums.size();
-      
-        for(int i=0;i<len;i++)
-        {
-            while(nums[i]!=nums[nums[i]-1])
-            {
-                swap(nums[i],nums[nums[i]-1]);
-            }
-        }
+       // one more appraoch with maths
+        int n=nums.size();
+        //This appraoch will only with Single duplicate elements
+        int totalSum=n*(n+1)/2;
         
-        for(int i=0;i<len;i++)
-        {
-            if(nums[i]!=i+1)
-            {
-                return {nums[i],i+1};
-            }
+          set<int> st;
+        int sum=0;
+        for(auto it: nums){
+            st.insert(it);
+            sum+=it;
         }
-        return {};
+      
+        
+        auto setSum=accumulate(st.begin(),st.end(),0);
+        
+        int repeat=sum-setSum;
+        int miss=totalSum-setSum;
+        
+        return {repeat,miss};
+        
     }
 };
 
