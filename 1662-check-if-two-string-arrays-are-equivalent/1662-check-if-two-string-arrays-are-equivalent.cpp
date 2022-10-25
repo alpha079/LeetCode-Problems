@@ -26,7 +26,7 @@ public:
         
         return row1==w1.size() and row2==w2.size();
         
-        //TC:- O(N*sizeoflongestword)
+        //TC:- O(N+M)
         //SC:- O(1)
     }
 };
